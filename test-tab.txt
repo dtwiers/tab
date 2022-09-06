@@ -1,0 +1,8 @@
+#: <file system> <mount point> <type> <options>  <dump>  <pass>
+LABEL=EFI    /mnt/efi  vfat   defaults,noatime   0 2
+UUID=2ee35f65-d1e9-467c-9217-155ea855e5be  /       ext4    defaults,noatime   0 1
+tmpfs  /tmp           tmpfs   defaults,noatime,mode=1777  0 0
+LABEL=notwork  /notwork       btrfs   defaults,noatime    0 1
+LABEL=work    /work          btrfs   defaults,noatime    0   1
+/mnt/efi/installs/work      /boot  none    defaults,bind 0  0
+
