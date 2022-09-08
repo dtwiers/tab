@@ -30,7 +30,7 @@ fn main() {
 // 3. write out file that separates each line into columns
 
 fn iterate_over_lines(file_name: &String) {
-    let header_regex = Regex::new(r"#:?(?:\s*<.*>)$").unwrap();
+    let header_regex = Regex::new(r"^#:?(?:\s*<.*>)+$").unwrap();
     let file = fs::read_to_string(file_name).unwrap();
     let lines = file.lines();
     let mut parsed_lines: Lines = Vec::new();
