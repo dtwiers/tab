@@ -1,5 +1,5 @@
+use clap::Parser;
 use regex::Regex;
-// use std::env;
 use std::fs;
 
 enum TabulatedLine {
@@ -13,18 +13,25 @@ type Lines = Vec<TabulatedLine>;
 
 type ColumnWidths = Vec<u64>;
 
+#[derive(Parser, Debug)]
+#[clap(author, version, about, long_about = None)]
+struct Args {
+    #[clap(value_parser)]
+    file: String,
+}
+
 fn main() {
-    // let args: Vec<String> = env::args().collect();
-    iterate_over_lines();
+    let args = Args::parse();
+    iterate_over_lines(&args.file);
 }
 
 // 1. Separate each line into columns - with a union that may include an unformatted line
 // 2. separate data structure; have <Vec<integer>> as column widths
 // 3. write out file that separates each line into columns
 
-fn iterate_over_lines() {
+fn iterate_over_lines(file_name: &String) {
     let header_regex = Regex::new(r"#:?(?:\s*<.*>)$").unwrap();
-    let file = fs::read_to_string("./test-tab.txt").unwrap();
+    let file = fs::read_to_string(file_name).unwrap();
     let lines = file.lines();
     let mut parsed_lines: Lines = Vec::new();
     let mut widths: ColumnWidths = Vec::new();
